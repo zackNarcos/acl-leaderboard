@@ -68,31 +68,31 @@
                                             {{team.region}}
                                       </td>
                                       <td class="text-primary"  *ngIf="isShowPlayer">
-                                          {{team.p1}}
+                                          {{team.players[0].name ? team.players[0].name : '---'}}
                                       </td>
-                                        <td class="text-primary"  *ngIf="isShowPlayer">
-                                            {{team.p2}}
-                                        </td>
-                                        <td class="text-primary"  *ngIf="isShowPlayer">
-                                            {{team.p3}}
-                                        </td>
-                                        <td class="text-primary"  *ngIf="isShowPlayer">
-                                            {{team.p4}}
-                                        </td>
-                                        <td class="text-primary"  *ngIf="isShowPlayer">
-                                            {{team.p5}}
-                                        </td>
-                                        <td class="text-primary"  *ngIf="isShowPlayer">
-                                            {{team.p6}}
-                                        </td>
-                                        <td>
-<!--                                            <button class="btn btn-primary" (click)="editTeam(team)">-->
-<!--                                                <i class="material-icons">edit</i>-->
-<!--                                            </button>-->
-                                            <button class="btn btn-danger" (click)="deleteTeam(team)">
-                                                <i class="material-icons">delete</i>
-                                            </button>
-                                        </td>
+                                      <td class="text-primary"  *ngIf="isShowPlayer">
+                                          {{team.players[1].name ? team.players[1].name : '---'}}
+                                      </td>
+                                      <td class="text-primary"  *ngIf="isShowPlayer">
+                                          {{team.players[2].name ? team.players[2].name : '---'}}
+                                      </td>
+                                      <td class="text-primary"  *ngIf="isShowPlayer">
+                                          {{team.players[3].name ? team.players[3].name : '---'}}
+                                      </td>
+                                      <td class="text-primary"  *ngIf="isShowPlayer">
+                                          {{team.players[4].name ? team.players[4].name : '---'}}
+                                      </td>
+                                      <td class="text-primary"  *ngIf="isShowPlayer">
+                                          {{team.players[5].name ? team.players[5].name : '---'}}
+                                      </td>
+                                      <td style="text-align: end">
+                                          <button class="btn btn-warning" routerLink="/up-team/{{team.name}}">
+                                              <i class="material-icons">edit</i>
+                                          </button>
+                                          <button class="btn btn-danger" (click)="deleteTeam(team)">
+                                              <i class="material-icons">delete</i>
+                                          </button>
+                                      </td>
                                   </tr>
                               </tbody>
                           </table>

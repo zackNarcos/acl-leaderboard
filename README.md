@@ -158,10 +158,10 @@ material-dashboard-angular
 │   │   │   ├── upgrade.component.spec.ts
 │   │   │   └── upgrade.component.ts
 │   │   └── user-profile
-│   │       ├── user-profile.component.css
-│   │       ├── user-profile.component.html
-│   │       ├── user-profile.component.spec.ts
-│   │       └── user-profile.component.ts
+│   │       ├── up-team.component.css
+│   │       ├── up-team.component.html
+│   │       ├── up-team.component.spec.ts
+│   │       └── up-team.component.ts
 │   ├── assets
 │   │   ├── css
 │   │   │   └── demo.css

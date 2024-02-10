@@ -49,15 +49,45 @@ export class UserProfileComponent implements OnInit {
     const teamRef = collection(this.db, "teams");
     const addRef = await setDoc(doc(teamRef), {
         name: this.teamForm.value.teamName,
-        p1: this.teamForm.value.teamP1,
-        p2: this.teamForm.value.teamP2,
-        p3: this.teamForm.value.teamP3,
-        p4: this.teamForm.value.teamP4,
-        s1: this.teamForm.value.teamS1,
-        s2: this.teamForm.value.teamS2,
         logo: this.teamForm.value.teamLogo,
         tag: this.teamForm.value.teamTag,
-        region: this.teamForm.value.teamRegion
+        region: this.teamForm.value.teamRegion,
+        wwcd: 0,
+        kills: 0,
+        pp: 0,
+        total: 0,
+        players: [
+            {
+                name: this.teamForm.value.teamP1,
+                kill: 0,
+                id: 1
+            },
+            {
+                name: this.teamForm.value.teamP2,
+                kill: 0,
+                id: 2
+            },
+            {
+                name: this.teamForm.value.teamP3,
+                kill: 0,
+                id: 3
+            },
+            {
+                name: this.teamForm.value.teamP4,
+                kill: 0,
+                id: 4
+            },
+            {
+                name: this.teamForm.value.teamS1,
+                kill: 0,
+                id: 5
+            },
+            {
+                name: this.teamForm.value.teamS2,
+                kill: 0,
+                id: 6
+            },
+        ],
     });
     console.log("Document written with ID: ", addRef);
 

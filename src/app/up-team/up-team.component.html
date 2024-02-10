@@ -1,0 +1,94 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-8">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">Mise a jour des resultats d'une équipe</h4>
+                      <p class="card-category">Renseignez les resultats de match de l'equipe</p>
+                  </div>
+                  <div class="card-body">
+                      <form [formGroup]="teamForm">
+                          <div class="row">
+                              <div class="col-md-6">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Team Kills" type="number" [value]="teamKills">
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-6">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Match Position" type="number" formControlName="teamPos">
+                                </mat-form-field>
+                              </div>
+                          </div>
+                              <label class="mb-0 mt-2">Players Kill</label>
+                          <div class="row">
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="P1" type="number" formControlName="teamP1">
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="P2" type="text" formControlName="teamP2">
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="P3" type="text" formControlName="teamP3">
+                                </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="P4" type="text" formControlName="teamP4">
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="S1" type="text" formControlName="teamS1">
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="S2" type="text" formControlName="teamS2">
+                                </mat-form-field>
+                              </div>
+                          </div>
+<!--                          <button mat-raised-button type="submit"-->
+<!--                                  class="btn btn-danger pull-right"-->
+<!--                                  [disabled]="!teamForm.valid"-->
+<!--                                  (click)="onSubmit()"-->
+<!--                          >Ajouter</button>-->
+                          <div class="clearfix"></div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+<!--          <div class="col-md-4">-->
+<!--              <div class="card card-profile">-->
+<!--                  <div class="card-avatar">-->
+<!--                      <a href="javascript:void(0)">-->
+<!--                          <img class="img" [src]="teamForm.get('teamLogo').value ? teamForm.get('teamLogo').value : 'assets/img/AfroGamingHub.png'"/>-->
+<!--                      </a>-->
+<!--                  </div>-->
+<!--                  <div class="card-body">-->
+<!--                      <h6 class="card-category text-gray">{{teamForm.get('teamName').value}}</h6>-->
+<!--                      <h4 class="card-title">Team Tag: {{teamForm.get('teamTag').value}}</h4>-->
+<!--                      <h4 class="card-title">Team Region: {{teamForm.get('teamRegion').value}}</h4>-->
+<!--                      <p class="card-description">-->
+<!--                          <h5>Team Members:</h5>-->
+<!--                            <span>{{teamForm.get('teamP1').value ? teamForm.get('teamP1').value : 'P1'}}</span>,-->
+<!--                            <span>{{teamForm.get('teamP2').value ? teamForm.get('teamP2').value : 'P2'}}</span>,-->
+<!--                            <span>{{teamForm.get('teamP3').value ? teamForm.get('teamP3').value : 'P3'}}</span>,-->
+<!--                            <span>{{teamForm.get('teamP4').value ? teamForm.get('teamP4').value : 'P4'}}</span>,-->
+<!--                            <span>{{teamForm.get('teamS1').value ? teamForm.get('teamS1').value : 'S1'}}</span>,-->
+<!--                            <span>{{teamForm.get('teamS2').value ? teamForm.get('teamS2').value : 'S2'}}</span>-->
+<!--&lt;!&ndash;                      <a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>&ndash;&gt;-->
+<!--                  </div>-->
+<!--              </div>-->
+<!--          </div>-->
+      </div>
+  </div>
+</div>

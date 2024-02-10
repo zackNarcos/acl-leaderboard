@@ -50,11 +50,15 @@ export class TableListComponent implements OnInit {
     //get id of the team and delete it
 
 
-  const querySnapshot = await getDocs(collection(this.db, "teams"));
-    querySnapshot.forEach((doc) => {
+    const querySnapshot = await getDocs(collection(this.db, "teams"));
+      querySnapshot.forEach((doc) => {
         if(doc.data().name === team.name){
           deleteDoc(doc.ref);
         }
     });
+  }
+
+  editTeam(team: any) {
+
   }
 }

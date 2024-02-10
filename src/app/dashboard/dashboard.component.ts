@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
+import {collection, getDocs, getFirestore} from "firebase/firestore";
+import {initializeApp} from "firebase/app";
+import {getAnalytics} from "firebase/analytics";
 
 @Component({
   selector: 'app-dashboard',
@@ -8,6 +11,25 @@ import * as Chartist from 'chartist';
 })
 export class DashboardComponent implements OnInit {
 
+    topFragger: any
+    playerTopFragger: any
+
+    firebaseConfig = {
+        apiKey: "AIzaSyC32zytXvLL-38BJ53fwEyh-n6h8zdP77Q",
+        authDomain: "pubg-acl.firebaseapp.com",
+        databaseURL: "https://pubg-acl-default-rtdb.firebaseio.com",
+        projectId: "pubg-acl",
+        storageBucket: "pubg-acl.appspot.com",
+        messagingSenderId: "249962926368",
+        appId: "1:249962926368:web:fe57f9e720bfbc5eff8745",
+        measurementId: "G-EYXND0RTVC"
+    };
+
+    teams: any[] = [];
+    app = initializeApp(this.firebaseConfig);
+    analytics = getAnalytics(this.app);
+
+    db = getFirestore(this.app);
   constructor() { }
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
@@ -145,6 +167,17 @@ export class DashboardComponent implements OnInit {
 
       //start animation for the Emails Subscription Chart
       this.startAnimationForBarChart(websiteViewsChart);
+     this.getTeams();
+  }
+
+  async getTeams() {
+      const querySnapshot = await getDocs(collection(this.db, "teams"));
+      querySnapshot.forEach((doc) => {
+          this.teams.push(doc.data());
+      });
+
+      this.topFragger = this.teams.reduce((prev, current) => (prev.kills > current.kills) ? prev : current);
+      this.playerTopFragger = this.topFragger.players.reduce((prev, current) => (prev.kill > current.kill) ? prev : current);
   }
 
 }

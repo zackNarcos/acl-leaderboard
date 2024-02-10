@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="container-fluid">
       <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-8">
               <div class="card">
                   <div class="card-header card-header-danger">
                       <h4 class="card-title">Ajouter une équipe</h4>
@@ -82,23 +82,29 @@
                   </div>
               </div>
           </div>
-<!--          <div class="col-md-4">-->
-<!--              <div class="card card-profile">-->
-<!--                  <div class="card-avatar">-->
-<!--                      <a href="javascript:void(0)">-->
-<!--                          <img class="img" src="./assets/img/faces/marc.jpg" />-->
-<!--                      </a>-->
-<!--                  </div>-->
-<!--                  <div class="card-body">-->
-<!--                      <h6 class="card-category text-gray">CEO / Co-Founder</h6>-->
-<!--                      <h4 class="card-title">Alec Thompson</h4>-->
-<!--                      <p class="card-description">-->
-<!--                          Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...-->
-<!--                      </p>-->
+          <div class="col-md-4">
+              <div class="card card-profile">
+                  <div class="card-avatar">
+                      <a href="javascript:void(0)">
+                          <img class="img" [src]="teamForm.get('teamLogo').value ? teamForm.get('teamLogo').value : 'assets/img/AfroGamingHub.png'"/>
+                      </a>
+                  </div>
+                  <div class="card-body">
+                      <h6 class="card-category text-gray">{{teamForm.get('teamName').value}}</h6>
+                      <h4 class="card-title">Team Tag: {{teamForm.get('teamTag').value}}</h4>
+                      <h4 class="card-title">Team Region: {{teamForm.get('teamRegion').value}}</h4>
+                      <p class="card-description">
+                          <h5>Team Members:</h5>
+                            <span>{{teamForm.get('teamP1').value ? teamForm.get('teamP1').value : 'P1'}}</span>,
+                            <span>{{teamForm.get('teamP2').value ? teamForm.get('teamP2').value : 'P2'}}</span>,
+                            <span>{{teamForm.get('teamP3').value ? teamForm.get('teamP3').value : 'P3'}}</span>,
+                            <span>{{teamForm.get('teamP4').value ? teamForm.get('teamP4').value : 'P4'}}</span>,
+                            <span>{{teamForm.get('teamS1').value ? teamForm.get('teamS1').value : 'S1'}}</span>,
+                            <span>{{teamForm.get('teamS2').value ? teamForm.get('teamS2').value : 'S2'}}</span>
 <!--                      <a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>-->
-<!--                  </div>-->
-<!--              </div>-->
-<!--          </div>-->
+                  </div>
+              </div>
+          </div>
       </div>
   </div>
 </div>
