@@ -60,5 +60,8 @@ export class UserProfileComponent implements OnInit {
         region: this.teamForm.value.teamRegion
     });
     console.log("Document written with ID: ", addRef);
+
+    //reset form
+    this.teamForm.reset();
   }
 }

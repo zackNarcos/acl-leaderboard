@@ -48,6 +48,9 @@
                                   <th  *ngIf="isShowPlayer">
                                       Players 6
                                   </th>
+                              <th>
+<!--                                  Action-->
+                              </th>
                               </thead>
                               <tbody>
                                   <tr *ngFor="let team of teams ; let i = index">
@@ -81,6 +84,14 @@
                                         </td>
                                         <td class="text-primary"  *ngIf="isShowPlayer">
                                             {{team.p6}}
+                                        </td>
+                                        <td>
+<!--                                            <button class="btn btn-primary" (click)="editTeam(team)">-->
+<!--                                                <i class="material-icons">edit</i>-->
+<!--                                            </button>-->
+                                            <button class="btn btn-danger" (click)="deleteTeam(team)">
+                                                <i class="material-icons">delete</i>
+                                            </button>
                                         </td>
                                   </tr>
                               </tbody>

@@ -44,4 +44,10 @@ export class TableListComponent implements OnInit {
         this.teams.push(doc.data());
     });
   }
+
+  deleteTeam(team: any) {
+    console.log(team);
+    const index = this.teams.indexOf(team);
+
+  }
 }
