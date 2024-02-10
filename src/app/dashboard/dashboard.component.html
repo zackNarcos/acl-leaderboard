@@ -58,8 +58,7 @@
                       <div class="card-icon">
                           <i class="fa fa-bolt"></i>
                       </div>
-                      <p class="card-category">Top Fragger</p>
-                      <p class="card-category">{{playerTopFragger.kills}}</p>
+                      <p class="card-category">Top Fragger ({{playerTopFragger.kill}} kill(s))</p>
                       <h2 class="card-title">
                           {{playerTopFragger.name ? playerTopFragger.name : 'No Top Fragger Yet'}}
                       </h2>
@@ -135,15 +134,27 @@
                           <thead class="text-danger">
                               <th>ID</th>
                               <th>TEAM NAME</th>
+                              <th>P1</th>
+                              <th>P2</th>
+                              <th>P3</th>
+                              <th>P4</th>
+                              <th>P5</th>
+                              <th>P6</th>
                               <th>WWCD</th>
                               <th>POS.P.</th>
-                              <th>KILL</th>
+                              <th>KILLS</th>
                               <th>TOTAL</th>
                           </thead>
                           <tbody>
                               <tr *ngFor="let team of teams; let i = index">
                                   <td>{{i+1}}</td>
                                   <td>{{team.name}}</td>
+                                  <td>{{team.players[0].kill}}</td>
+                                  <td>{{team.players[1].kill}}</td>
+                                  <td>{{team.players[2].kill}}</td>
+                                  <td>{{team.players[3].kill}}</td>
+                                  <td>{{team.players[4].kill}}</td>
+                                  <td>{{team.players[5].kill}}</td>
                                   <td>{{team.wwcd}}</td>
                                   <td>{{team.pp}}</td>
                                   <td>{{team.kills}}</td>

@@ -12,7 +12,7 @@
                           <div class="row">
                               <div class="col-md-6">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Team Kills" type="number" [value]="teamKills">
+                                  <input matInput placeholder="Team Kills" type="number" [value]="teamKills" disabled="true">
                                 </mat-form-field>
                               </div>
                               <div class="col-md-6">
@@ -25,70 +25,64 @@
                           <div class="row">
                               <div class="col-md-4">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="P1" type="number" formControlName="teamP1">
+                                  <input matInput [placeholder]="teamP1" type="number" formControlName="p1Kills">
                                 </mat-form-field>
                               </div>
                               <div class="col-md-4">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="P2" type="text" formControlName="teamP2">
+                                  <input matInput [placeholder]="teamP2" type="number" formControlName="p2Kills">
                                 </mat-form-field>
                               </div>
                               <div class="col-md-4">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="P3" type="text" formControlName="teamP3">
+                                  <input matInput [placeholder]="teamP3" type="number" formControlName="p3Kills">
                                 </mat-form-field>
                               </div>
                           </div>
                           <div class="row">
                               <div class="col-md-4">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="P4" type="text" formControlName="teamP4">
+                                  <input matInput [placeholder]="teamP4" type="number" formControlName="p4Kills">
                                 </mat-form-field>
                               </div>
                               <div class="col-md-4">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="S1" type="text" formControlName="teamS1">
+                                  <input matInput [placeholder]="teamS1" type="number" formControlName="s1Kills">
                                 </mat-form-field>
                               </div>
                               <div class="col-md-4">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="S2" type="text" formControlName="teamS2">
+                                  <input matInput [placeholder]="teamS2" type="number" formControlName="s2Kills">
                                 </mat-form-field>
                               </div>
                           </div>
-<!--                          <button mat-raised-button type="submit"-->
-<!--                                  class="btn btn-danger pull-right"-->
-<!--                                  [disabled]="!teamForm.valid"-->
-<!--                                  (click)="onSubmit()"-->
-<!--                          >Ajouter</button>-->
+                          <button mat-raised-button type="submit"
+                                  class="btn btn-danger pull-right"
+                                  [disabled]="!teamForm.valid"
+                                  (click)="updateTeam()"
+                          >
+                              Enregistrer
+                          </button>
                           <div class="clearfix"></div>
                       </form>
                   </div>
               </div>
           </div>
-<!--          <div class="col-md-4">-->
-<!--              <div class="card card-profile">-->
-<!--                  <div class="card-avatar">-->
-<!--                      <a href="javascript:void(0)">-->
-<!--                          <img class="img" [src]="teamForm.get('teamLogo').value ? teamForm.get('teamLogo').value : 'assets/img/AfroGamingHub.png'"/>-->
-<!--                      </a>-->
-<!--                  </div>-->
-<!--                  <div class="card-body">-->
-<!--                      <h6 class="card-category text-gray">{{teamForm.get('teamName').value}}</h6>-->
-<!--                      <h4 class="card-title">Team Tag: {{teamForm.get('teamTag').value}}</h4>-->
-<!--                      <h4 class="card-title">Team Region: {{teamForm.get('teamRegion').value}}</h4>-->
-<!--                      <p class="card-description">-->
-<!--                          <h5>Team Members:</h5>-->
-<!--                            <span>{{teamForm.get('teamP1').value ? teamForm.get('teamP1').value : 'P1'}}</span>,-->
-<!--                            <span>{{teamForm.get('teamP2').value ? teamForm.get('teamP2').value : 'P2'}}</span>,-->
-<!--                            <span>{{teamForm.get('teamP3').value ? teamForm.get('teamP3').value : 'P3'}}</span>,-->
-<!--                            <span>{{teamForm.get('teamP4').value ? teamForm.get('teamP4').value : 'P4'}}</span>,-->
-<!--                            <span>{{teamForm.get('teamS1').value ? teamForm.get('teamS1').value : 'S1'}}</span>,-->
-<!--                            <span>{{teamForm.get('teamS2').value ? teamForm.get('teamS2').value : 'S2'}}</span>-->
-<!--&lt;!&ndash;                      <a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>&ndash;&gt;-->
-<!--                  </div>-->
-<!--              </div>-->
-<!--          </div>-->
+          <div class="col-md-4" *ngIf="team">
+              <div class="card card-profile">
+                  <div class="card-avatar">
+                      <a href="javascript:void(0)">
+                          <img class="img" [src]="team.logo ? team.logo : 'assets/img/AfroGamingHub.png'"/>
+                      </a>
+                  </div>
+                  <div class="card-body">
+                      <h6 class="card-category text-gray">{{team.name}}</h6>
+                      <h4 class="card-title">Team Tag: {{team.tag}}</h4>
+                      <h4 class="card-title">Team Region: {{team.region}}</h4>
+<!--                      <a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>-->
+                  </div>
+              </div>
+          </div>
       </div>
   </div>
 </div>
