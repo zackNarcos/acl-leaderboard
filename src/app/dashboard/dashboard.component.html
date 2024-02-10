@@ -133,7 +133,7 @@
                   <div class="card-body table-responsive">
                       <table class="table table-hover">
                           <thead class="text-danger">
-                          <th>ID</th>
+                          <th>LOGO</th>
                           <th>TEAM NAME</th>
                           <th>P1</th>
                           <th>P2</th>
@@ -148,7 +148,9 @@
                           </thead>
                           <tbody>
                           <tr *ngFor="let team of teams; let i = index">
-                              <td>{{i+1}}</td>
+                              <td>
+                                  <img src="{{team.logo}}" alt="logo" style="width: 50px; height: 50px; border-radius: 50% ; border: 1px solid #000">
+                              </td>
                               <td>{{team.name}}</td>
                               <td>{{team.players[0].kill}}</td>
                               <td>{{team.players[1].kill}}</td>
