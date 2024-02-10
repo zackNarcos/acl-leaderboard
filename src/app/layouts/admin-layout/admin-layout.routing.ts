@@ -50,6 +50,6 @@ export const AdminLayoutRoutes: Routes = [
     // }
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'table-list',     component: TableListComponent },
-    { path: 'up-team/:team',   component: UpTeamComponent },
+    // { path: 'table-list',     component: TableListComponent },
+    // { path: 'up-team/:team',   component: UpTeamComponent },
 ];
