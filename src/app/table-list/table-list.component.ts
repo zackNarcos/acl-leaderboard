@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 
 @Component({
@@ -45,9 +45,16 @@ export class TableListComponent implements OnInit {
     });
   }
 
-  deleteTeam(team: any) {
-    console.log(team);
-    const index = this.teams.indexOf(team);
+  async deleteTeam(team: any) {
+    this.teams = this.teams.filter((t) => t !== team);
+    //get id of the team and delete it
 
+
+  const querySnapshot = await getDocs(collection(this.db, "teams"));
+    querySnapshot.forEach((doc) => {
+        if(doc.data().name === team.name){
+          deleteDoc(doc.ref);
+        }
+    });
   }
 }
