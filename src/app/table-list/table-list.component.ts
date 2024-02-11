@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { collection, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import {collection, getDocs, doc, updateDoc, deleteDoc, setDoc} from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 
 @Component({
@@ -73,7 +73,7 @@ export class TableListComponent implements OnInit {
 
   async setDayData() {
     const day = this.formDays.find((d) => d.value === this.day);
-    const querySnapshot = await getDocs(collection(this.db, "result_test"));
+    const querySnapshot = await getDocs(collection(this.db, "result"));
     querySnapshot.forEach((doc) => {
       const newResultDay = this.teams.sort((a: any, b: any) => b.total - a.total);
       //new days.all = join newResultDay and doc.all
@@ -96,7 +96,7 @@ export class TableListComponent implements OnInit {
           }
         })
         newAll.push(team);
-        console.log('team', team)
+        // console.log('team', team)
       })
 
       if (newAll.length === 0) {
@@ -105,7 +105,7 @@ export class TableListComponent implements OnInit {
 
       if(day.viewValue.includes('Groupes')) {
 
-        console.log('newAllGroupe', newAll)
+        // console.log('newAllGroupe', newAll)
         updateDoc(doc.ref, {
           days: {
             all: newAll,
@@ -123,7 +123,6 @@ export class TableListComponent implements OnInit {
         })
       } else {
 
-        console.log('newAll', newAll)
         updateDoc(doc.ref, {
           days: {
             all: doc.data().days.all,
@@ -140,26 +139,37 @@ export class TableListComponent implements OnInit {
           }
         })
       }
+      this.clearTeams()
+
     });
 
     //reset teams to empty in firebase
+  }
+
+  async clearTeams() {
+    console.log('clearTeams')
     const querySnapshott = await getDocs(collection(this.db, "teams"));
+
     querySnapshott.forEach((doc) => {
-      let newTeamss = []
-      this.teams.forEach((team: any) => {
-        team.total = 0;
-        team.kills = 0;
-        team.pp = 0;
-        team.wwcd = 0;
-        team.players = team.players.map((player: any) => {
-          player.kills = 0;
-          return player;
-        });
-        newTeamss.push(team);
-      })
+      console.log('team', doc.data())
       updateDoc(doc.ref, {
-        teams: newTeamss
+        total: 0,
+        kills: 0,
+        pp: 0,
+        wwcd: 0,
+        players: doc.data().players.map((team: any) => {
+          return {
+            name: team.name,
+            kill: 0,
+            id: team.id
+          }
+        }),
+        tag: doc.data().tag,
+        logo: doc.data().logo,
+        name: doc.data().name,
+        region: doc.data().region
       });
+      // console.log('team', doc.data())
     });
   }
 }
