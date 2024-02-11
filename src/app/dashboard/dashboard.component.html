@@ -58,9 +58,9 @@
                       <div class="card-icon">
                           <i class="fa fa-bolt"></i>
                       </div>
-                      <p class="card-category">Top Fragger ({{playerTopFragger.kill}} Kill(s))</p>
+                      <p class="card-category">Top Fragger (<span *ngIf="playerTopFragger">{{playerTopFragger.kill}}</span> Kill(s))</p>
                       <p class="card-category">
-                      <h2 class="card-title">
+                      <h2 class="card-title" *ngIf="playerTopFragger">
                           {{playerTopFragger.name ? playerTopFragger.name : 'No Top Fragger Yet'}}
                       </h2>
                   </div>
@@ -72,63 +72,25 @@
               </div>
           </div>
       </div>
-<!--      <div class="row">-->
-<!--          <div class="col-md-4">-->
-<!--              <div class="card card-chart">-->
-<!--                  <div class="card-header card-header-success">-->
-<!--                      <div class="ct-chart" id="dailySalesChart"></div>-->
-<!--                  </div>-->
-<!--                  <div class="card-body">-->
-<!--                      <h4 class="card-title">Daily Sales</h4>-->
-<!--                      <p class="card-category">-->
-<!--                          <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>-->
-<!--                  </div>-->
-<!--                  <div class="card-footer">-->
-<!--                      <div class="stats">-->
-<!--                          <i class="material-icons">access_time</i> updated 4 minutes ago-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--              </div>-->
-<!--          </div>-->
-<!--          <div class="col-md-4">-->
-<!--              <div class="card card-chart">-->
-<!--                  <div class="card-header card-header-warning">-->
-<!--                      <div class="ct-chart" id="websiteViewsChart"></div>-->
-<!--                  </div>-->
-<!--                  <div class="card-body">-->
-<!--                      <h4 class="card-title">Email Subscriptions</h4>-->
-<!--                      <p class="card-category">Last Campaign Performance</p>-->
-<!--                  </div>-->
-<!--                  <div class="card-footer">-->
-<!--                      <div class="stats">-->
-<!--                          <i class="material-icons">access_time</i> campaign sent 2 days ago-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--              </div>-->
-<!--          </div>-->
-<!--          <div class="col-md-4">-->
-<!--              <div class="card card-chart">-->
-<!--                  <div class="card-header card-header-danger">-->
-<!--                      <div class="ct-chart" id="completedTasksChart"></div>-->
-<!--                  </div>-->
-<!--                  <div class="card-body">-->
-<!--                      <h4 class="card-title">Completed Tasks</h4>-->
-<!--                      <p class="card-category">Last Campaign Performance</p>-->
-<!--                  </div>-->
-<!--                  <div class="card-footer">-->
-<!--                      <div class="stats">-->
-<!--                          <i class="material-icons">access_time</i> campaign sent 2 days ago-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--              </div>-->
-<!--          </div>-->
-<!--      </div>-->
       <div class="row">
           <div class="col-md-12">
               <div class="card">
                   <div class="card-header card-header-danger">
                       <h4 class="card-title">Groupes Stage Stats</h4>
-                      <p class="card-category">P1 => Player 1 (that is individual player kills), <span class="show-player" (click)="isShowPlayerName = !isShowPlayerName">Click here for Show player name</span></p>
+                      <div class="card-category">
+                          P1 => Player 1 (that is individual player kills),
+                          <div class="row bg-white rounded" style="justify-content: space-between ; margin: 13px; padding-right: 1rem; padding-top: 0.5rem;">
+                              <span class="show-player" (click)="isShowPlayerName = !isShowPlayerName">
+                                Click here for Show player name
+                              </span>
+                              <mat-form-field>
+                                  <mat-label>Days</mat-label>
+                                  <mat-select [(value)]="day" (selectionChange)="getDayData($event)">
+                                      <mat-option [value]="day.value" *ngFor="let day of formDays">{{day.viewValue}}</mat-option>
+                                  </mat-select>
+                              </mat-form-field>
+                          </div>
+                      </div>
                   </div>
                   <div class="card-body table-responsive">
                       <table class="table table-hover">
