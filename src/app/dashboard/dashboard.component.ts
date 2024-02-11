@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
     analytics = getAnalytics(this.app);
 
     db = getFirestore(this.app);
+    isShowPlayerName: boolean = false;
   constructor() { }
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
