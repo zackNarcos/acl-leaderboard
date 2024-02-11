@@ -146,8 +146,10 @@
                               <th>TOTAL</th>
                           </thead>
                           <tbody>
-                              <tr *ngFor="let team of teams; let i = index">
-                                  <td>{{i+1}}</td>
+                              <tr *ngFor="let team of teams; let i = index" [class.bg-danger]="i > 15">
+                                  <td>
+                                      <img src="{{team.logo}}" alt="logo" style="width: 50px; height: 50px; border-radius: 50% ; border: 1px solid #000">
+                                  </td>
                                   <td>{{team.name}}</td>
                                   <td>{{team.players[0].kill}}</td>
                                   <td>{{team.players[1].kill}}</td>
