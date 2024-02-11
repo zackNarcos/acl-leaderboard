@@ -8,44 +8,42 @@
                           <h4 class="card-title ">Team Registered</h4>
                           <p class="card-category">S01</p>
                       </div>
-                      <div>
-                          <button class="btn btn-primary" (click)="isShowPlayer = !isShowPlayer">
-                              <i>afficher les joueurs</i>
-                          </button>
+                      <div class="row bg-white rounded" style="justify-content: space-between ; margin: 13px; padding-right: 1rem; padding-top: 0.5rem;">
+                              <span class="show-player" (click)="setDayData()">
+                                Cliquer ici uniquement si vous avez rensigné tous les matchs
+                              </span>
+                          <mat-form-field>
+                              <mat-label>Days</mat-label>
+                              <mat-select [(value)]="day">
+                                  <mat-option [value]="day.value" *ngFor="let day of formDays">{{day.viewValue}}</mat-option>
+                              </mat-select>
+                          </mat-form-field>
                       </div>
                   </div>
                   <div class="card-body">
                       <div class="table-responsive">
                           <table class="table">
                               <thead class=" text-primary">
-                                  <th>
-                                      Logo
-                                  </th>
+
                                   <th>
                                       Name
                                   </th>
-                                  <th>
-                                      Tag
-                                  </th>
-                                  <th>
-                                      Country
-                                  </th>
-                                  <th *ngIf="isShowPlayer">
+                                  <th class="font-size">
                                       Players 1
                                   </th>
-                                  <th *ngIf="isShowPlayer">
+                                  <th class="font-size">
                                       Players 2
                                   </th>
-                                  <th *ngIf="isShowPlayer">
+                                  <th class="font-size">
                                       Players 3
                                   </th>
-                                  <th *ngIf="isShowPlayer">
+                                  <th class="font-size">
                                       Players 4
                                   </th>
-                                  <th *ngIf="isShowPlayer">
+                                  <th class="font-size">
                                       Players 5
                                   </th>
-                                  <th  *ngIf="isShowPlayer">
+                                  <th class="font-size">
                                       Players 6
                                   </th>
                               <th>
@@ -54,37 +52,25 @@
                               </thead>
                               <tbody>
                                   <tr *ngFor="let team of teams ; let i = index">
-                                      <td>
-<!--                                            add logo avatar -->
-                                          <img src="{{team.logo}}" alt="logo" style="width: 50px; height: 50px; border-radius: 50% ; border: 1px solid #000">
-                                      </td>
+<!--                                      <td>-->
+<!--&lt;!&ndash;                                            add logo avatar &ndash;&gt;-->
+<!--                                          <img src="{{team.logo}}" alt="logo" style="width: 50px; height: 50px; border-radius: 50% ; border: 1px solid #000">-->
+<!--                                      </td>-->
                                       <td>
                                             {{team.name}}
                                       </td>
-                                      <td>
-                                            {{team.tag}}
-                                      </td>
-                                      <td>
-                                            {{team.region}}
-                                      </td>
-                                      <td class="text-primary"  *ngIf="isShowPlayer">
-                                          {{team.players[0].name ? team.players[0].name : '---'}}
-                                      </td>
-                                      <td class="text-primary"  *ngIf="isShowPlayer">
-                                          {{team.players[1].name ? team.players[1].name : '---'}}
-                                      </td>
-                                      <td class="text-primary"  *ngIf="isShowPlayer">
-                                          {{team.players[2].name ? team.players[2].name : '---'}}
-                                      </td>
-                                      <td class="text-primary"  *ngIf="isShowPlayer">
-                                          {{team.players[3].name ? team.players[3].name : '---'}}
-                                      </td>
-                                      <td class="text-primary"  *ngIf="isShowPlayer">
-                                          {{team.players[4].name ? team.players[4].name : '---'}}
-                                      </td>
-                                      <td class="text-primary"  *ngIf="isShowPlayer">
-                                          {{team.players[5].name ? team.players[5].name : '---'}}
-                                      </td>
+<!--                                      <td>-->
+<!--                                            {{team.tag}}-->
+<!--                                      </td>-->
+<!--                                      <td>-->
+<!--                                            {{team.region}}-->
+<!--                                      </td>-->
+                                      <td class="no-wrap">{{team.players[0].name}} : <span class="text-danger">{{team.players[0].kill}}</span></td>
+                                      <td class="no-wrap">{{team.players[1].name}} : <span class="text-danger">{{team.players[1].kill}}</span></td>
+                                      <td class="no-wrap">{{team.players[2].name}} : <span class="text-danger">{{team.players[2].kill}}</span></td>
+                                      <td class="no-wrap">{{team.players[3].name}} : <span class="text-danger">{{team.players[3].kill}}</span></td>
+                                      <td class="no-wrap">{{team.players[4].name}} : <span class="text-danger">{{team.players[4].kill}}</span></td>
+                                      <td class="no-wrap">{{team.players[5].name}} : <span class="text-danger">{{team.players[5].kill}}</span></td>
                                       <td style="text-align: end">
                                           <button class="btn btn-warning" routerLink="/up-team/{{team.name}}">
                                               <i class="material-icons">edit</i>
