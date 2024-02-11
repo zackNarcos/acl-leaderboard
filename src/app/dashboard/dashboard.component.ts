@@ -174,6 +174,10 @@ export class DashboardComponent implements OnInit {
       const querySnapshot = await getDocs(collection(this.db, "teams"));
       querySnapshot.forEach((doc) => {
           this.teams.push(doc.data());
+          //sort the teams by kills
+          this.teams = this.teams.sort((a, b) => {
+              return b.total - a.total;
+          });
       });
 
       this.topFragger = this.teams.reduce((prev, current) => (prev.kills > current.kills) ? prev : current);
