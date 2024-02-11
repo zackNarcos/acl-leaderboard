@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
-import {collection, getDocs, getFirestore} from "firebase/firestore";
+import {collection, getDocs, getFirestore, updateDoc} from "firebase/firestore";
 import {initializeApp} from "firebase/app";
 import {getAnalytics} from "firebase/analytics";
+import {MatSelectChange} from "@angular/material/select";
 
 @Component({
   selector: 'app-dashboard',
@@ -25,165 +26,131 @@ export class DashboardComponent implements OnInit {
         measurementId: "G-EYXND0RTVC"
     };
 
+    formDays: any[] = [
+        {value: '0', viewValue: 'Groupes Day 1'},
+        {value: '1', viewValue: 'Groupes Day 2'},
+        {value: '2', viewValue: 'Groupes Day 3'},
+        {value: '3', viewValue: 'Groupes Day 4'},
+        {value: '4', viewValue: 'Groupes Day 5'},
+        {value: '5', viewValue: 'Groupes Day 6'},
+        {value: '6', viewValue: 'All Groupes Days'},
+        {value: '7', viewValue: 'Final Day 1'},
+        {value: '8', viewValue: 'Final Day 2'},
+        {value: '9', viewValue: 'Final Day 3'},
+        {value: '10', viewValue: 'All Final Days'},
+    ];
+
     teams: any[] = [];
+    resultDay1: any;
+    resultDay2: any;
+    resultDay3: any;
+    resultDay4: any;
+    resultDay5: any;
+    resultDay6: any;
+    resultDays: any;
+    resultFinalDay1: any;
+    resultFinalDay2: any;
+    resultFinalDay3: any;
+    resultFinalDay: any;
     app = initializeApp(this.firebaseConfig);
     analytics = getAnalytics(this.app);
 
     db = getFirestore(this.app);
-  constructor() { }
-  startAnimationForLineChart(chart){
-      let seq: any, delays: any, durations: any;
-      seq = 0;
-      delays = 80;
-      durations = 500;
+    isShowPlayerName: boolean = false;
+    day = this.formDays[6].value;
+    constructor() { }
 
-      chart.on('draw', function(data) {
-        if(data.type === 'line' || data.type === 'area') {
-          data.element.animate({
-            d: {
-              begin: 600,
-              dur: 700,
-              from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
-              to: data.path.clone().stringify(),
-              easing: Chartist.Svg.Easing.easeOutQuint
-            }
-          });
-        } else if(data.type === 'point') {
-              seq++;
-              data.element.animate({
-                opacity: {
-                  begin: seq * delays,
-                  dur: durations,
-                  from: 0,
-                  to: 1,
-                  easing: 'ease'
-                }
-              });
-          }
-      });
-
-      seq = 0;
-  };
-  startAnimationForBarChart(chart){
-      let seq2: any, delays2: any, durations2: any;
-
-      seq2 = 0;
-      delays2 = 80;
-      durations2 = 500;
-      chart.on('draw', function(data) {
-        if(data.type === 'bar'){
-            seq2++;
-            data.element.animate({
-              opacity: {
-                begin: seq2 * delays2,
-                dur: durations2,
-                from: 0,
-                to: 1,
-                easing: 'ease'
-              }
-            });
-        }
-      });
-
-      seq2 = 0;
-  };
-  ngOnInit() {
-      /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
-
-      const dataDailySalesChart: any = {
-          labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-          series: [
-              [12, 17, 7, 17, 23, 18, 38]
-          ]
-      };
-
-     const optionsDailySalesChart: any = {
-          lineSmooth: Chartist.Interpolation.cardinal({
-              tension: 0
-          }),
-          low: 0,
-          high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-          chartPadding: { top: 0, right: 0, bottom: 0, left: 0},
-      }
-
-      var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
-
-      this.startAnimationForLineChart(dailySalesChart);
-
-
-      /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
-
-      const dataCompletedTasksChart: any = {
-          labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
-          series: [
-              [230, 750, 450, 300, 280, 240, 200, 190]
-          ]
-      };
-
-     const optionsCompletedTasksChart: any = {
-          lineSmooth: Chartist.Interpolation.cardinal({
-              tension: 0
-          }),
-          low: 0,
-          high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-          chartPadding: { top: 0, right: 0, bottom: 0, left: 0}
-      }
-
-      var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
-
-      // start animation for the Completed Tasks Chart - Line Chart
-      this.startAnimationForLineChart(completedTasksChart);
-
-
-
-      /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
-
-      var datawebsiteViewsChart = {
-        labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
-        series: [
-          [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
-
-        ]
-      };
-      var optionswebsiteViewsChart = {
-          axisX: {
-              showGrid: false
-          },
-          low: 0,
-          high: 1000,
-          chartPadding: { top: 0, right: 5, bottom: 0, left: 0}
-      };
-      var responsiveOptions: any[] = [
-        ['screen and (max-width: 640px)', {
-          seriesBarDistance: 5,
-          axisX: {
-            labelInterpolationFnc: function (value) {
-              return value[0];
-            }
-          }
-        }]
-      ];
-      var websiteViewsChart = new Chartist.Bar('#websiteViewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
-
-      //start animation for the Emails Subscription Chart
-      this.startAnimationForBarChart(websiteViewsChart);
+    ngOnInit() {
      this.getTeams();
-  }
+    }
 
-  async getTeams() {
-      const querySnapshot = await getDocs(collection(this.db, "teams"));
-      querySnapshot.forEach((doc) => {
+    async getTeams() {
+        const querySnapshot = await getDocs(collection(this.db, "result"));
+        querySnapshot.forEach((doc) => {
+            this.resultDay1 = doc.data().days.day1.sort((a: any, b: any) => b.total - a.total);
+            this.resultDay2 = doc.data().days.day2.sort((a: any, b: any) => b.total - a.total);
+            this.resultDay3 = doc.data().days.day3.sort((a: any, b: any) => b.total - a.total);
+            this.resultDay4 = doc.data().days.day4.sort((a: any, b: any) => b.total - a.total);
+            this.resultDay5 = doc.data().days.day5.sort((a: any, b: any) => b.total - a.total);
+            this.resultDay6 = doc.data().days.day6.sort((a: any, b: any) => b.total - a.total);
+            this.resultDays = doc.data().days.days.sort((a: any, b: any) => b.total - a.total);
+            this.resultFinalDay1 = doc.data().days.finalDay1.sort((a: any, b: any) => b.total - a.total);
+            this.resultFinalDay2 = doc.data().days.finalDay2.sort((a: any, b: any) => b.total - a.total);
+            this.resultFinalDay3 = doc.data().days.finalDay3.sort((a: any, b: any) => b.total - a.total);
+            this.resultFinalDay = doc.data().days.finalDay.sort((a: any, b: any) => b.total - a.total);
+            this.teams = doc.data().days.days;
+            // this.result.push(doc.data());
+            // sort the teams by kills
+            // this.result = this.teams.sort((a, b) => {
+            //     return b.total - a.total;
+            // });
+            //
+            // this.getResults();
+        });
 
-          this.teams.push(doc.data());
+        this.topFragger = this.teams.reduce((prev, current) => (prev.kills > current.kills) ? prev : current);
+        this.playerTopFragger = this.topFragger.players.reduce((prev, current) => (prev.kill > current.kill) ? prev : current);
+    }
 
-          //sort the teams by kills
-          this.teams = this.teams.sort((a, b) => {
-              return b.total - a.total;
-          });
-      });
+    // async getResults() {
+    //     const querySnapshot = await getDocs(collection(this.db, "result"));
+    //     querySnapshot.forEach((doc) => {
+    //         this.result = doc.data();
+    //         // this.result.days.day1 = this.teams;
+    //
+    //         //now update the result
+    //         updateDoc(doc.ref, {
+    //             days: {
+    //                 all: this.teams,
+    //                 day1: this.teams,
+    //                 day2: [],
+    //                 day3: [],
+    //                 day4: [],
+    //                 day5: [],
+    //                 day6: [],
+    //                 finalDay1: [],
+    //                 finalDay2: [],
+    //                 finalDay3: [],
+    //                 finalDay: [],
+    //             }
+    //         });
+    //     });
+    // }
 
-      this.topFragger = this.teams.reduce((prev, current) => (prev.kills > current.kills) ? prev : current);
-      this.playerTopFragger = this.topFragger.players.reduce((prev, current) => (prev.kill > current.kill) ? prev : current);
-  }
-
+    getDayData($event: MatSelectChange) {
+        this.day = $event.value;
+        if (this.day === '0') {
+            this.teams = this.resultDay1;
+        }
+        if (this.day === '1') {
+            this.teams = this.resultDay2;
+        }
+        if (this.day === '2') {
+            this.teams = this.resultDay3;
+        }
+        if (this.day === '3') {
+            this.teams = this.resultDay4;
+        }
+        if (this.day === '4') {
+            this.teams = this.resultDay5;
+        }
+        if (this.day === '5') {
+            this.teams = this.resultDay6;
+        }
+        if (this.day === '6') {
+            this.teams = this.resultDays;
+        }
+        if (this.day === '7') {
+            this.teams = this.resultFinalDay1;
+        }
+        if (this.day === '8') {
+            this.teams = this.resultFinalDay2;
+        }
+        if (this.day === '9') {
+            this.teams = this.resultFinalDay3;
+        }
+        if (this.day === '10') {
+            this.teams = this.resultFinalDay;
+        }
+    }
 }

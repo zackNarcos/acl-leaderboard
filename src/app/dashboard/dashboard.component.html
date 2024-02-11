@@ -58,8 +58,9 @@
                       <div class="card-icon">
                           <i class="fa fa-bolt"></i>
                       </div>
-                      <p class="card-category">Top Fragger ({{playerTopFragger.kill}} kill(s))</p>
-                      <h2 class="card-title">
+                      <p class="card-category">Top Fragger (<span *ngIf="playerTopFragger">{{playerTopFragger.kill}}</span> Kill(s))</p>
+                      <p class="card-category">
+                      <h2 class="card-title" *ngIf="playerTopFragger">
                           {{playerTopFragger.name ? playerTopFragger.name : 'No Top Fragger Yet'}}
                       </h2>
                   </div>
@@ -71,97 +72,65 @@
               </div>
           </div>
       </div>
-<!--      <div class="row">-->
-<!--          <div class="col-md-4">-->
-<!--              <div class="card card-chart">-->
-<!--                  <div class="card-header card-header-success">-->
-<!--                      <div class="ct-chart" id="dailySalesChart"></div>-->
-<!--                  </div>-->
-<!--                  <div class="card-body">-->
-<!--                      <h4 class="card-title">Daily Sales</h4>-->
-<!--                      <p class="card-category">-->
-<!--                          <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>-->
-<!--                  </div>-->
-<!--                  <div class="card-footer">-->
-<!--                      <div class="stats">-->
-<!--                          <i class="material-icons">access_time</i> updated 4 minutes ago-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--              </div>-->
-<!--          </div>-->
-<!--          <div class="col-md-4">-->
-<!--              <div class="card card-chart">-->
-<!--                  <div class="card-header card-header-warning">-->
-<!--                      <div class="ct-chart" id="websiteViewsChart"></div>-->
-<!--                  </div>-->
-<!--                  <div class="card-body">-->
-<!--                      <h4 class="card-title">Email Subscriptions</h4>-->
-<!--                      <p class="card-category">Last Campaign Performance</p>-->
-<!--                  </div>-->
-<!--                  <div class="card-footer">-->
-<!--                      <div class="stats">-->
-<!--                          <i class="material-icons">access_time</i> campaign sent 2 days ago-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--              </div>-->
-<!--          </div>-->
-<!--          <div class="col-md-4">-->
-<!--              <div class="card card-chart">-->
-<!--                  <div class="card-header card-header-danger">-->
-<!--                      <div class="ct-chart" id="completedTasksChart"></div>-->
-<!--                  </div>-->
-<!--                  <div class="card-body">-->
-<!--                      <h4 class="card-title">Completed Tasks</h4>-->
-<!--                      <p class="card-category">Last Campaign Performance</p>-->
-<!--                  </div>-->
-<!--                  <div class="card-footer">-->
-<!--                      <div class="stats">-->
-<!--                          <i class="material-icons">access_time</i> campaign sent 2 days ago-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--              </div>-->
-<!--          </div>-->
-<!--      </div>-->
       <div class="row">
           <div class="col-md-12">
               <div class="card">
                   <div class="card-header card-header-danger">
                       <h4 class="card-title">Groupes Stage Stats</h4>
-                      <p class="card-category">Teams performance on the groupes stage of the Africa Champions League</p>
+                      <div class="card-category">
+                          P1 => Player 1 (that is individual player kills),
+                          <div class="row bg-white rounded" style="justify-content: space-between ; margin: 13px; padding-right: 1rem; padding-top: 0.5rem;">
+                              <span class="show-player" (click)="isShowPlayerName = !isShowPlayerName">
+                                Click here for Show player name
+                              </span>
+                              <mat-form-field>
+                                  <mat-label>Days</mat-label>
+                                  <mat-select [(value)]="day" (selectionChange)="getDayData($event)">
+                                      <mat-option [value]="day.value" *ngFor="let day of formDays">{{day.viewValue}}</mat-option>
+                                  </mat-select>
+                              </mat-form-field>
+                          </div>
+                      </div>
                   </div>
                   <div class="card-body table-responsive">
                       <table class="table table-hover">
                           <thead class="text-danger">
-                              <th>ID</th>
-                              <th>TEAM NAME</th>
-                              <th>P1</th>
-                              <th>P2</th>
-                              <th>P3</th>
-                              <th>P4</th>
-                              <th>P5</th>
-                              <th>P6</th>
-                              <th>WWCD</th>
-                              <th>POS.P.</th>
-                              <th>KILLS</th>
-                              <th>TOTAL</th>
+                          <th>LOGO</th>
+                          <th>TEAM NAME</th>
+                          <th>P1</th>
+                          <th>P2</th>
+                          <th>P3</th>
+                          <th>P4</th>
+                          <th>P5</th>
+                          <th>P6</th>
+                          <th>WWCD</th>
+                          <th>POS.P.</th>
+                          <th>KILLS</th>
+                          <th>TOTAL</th>
                           </thead>
                           <tbody>
-                              <tr *ngFor="let team of teams; let i = index" [class.bg-danger]="i > 15">
-                                  <td>
-                                      <img src="{{team.logo}}" alt="logo" style="width: 50px; height: 50px; border-radius: 50% ; border: 1px solid #000">
-                                  </td>
-                                  <td>{{team.name}}</td>
-                                  <td>{{team.players[0].kill}}</td>
-                                  <td>{{team.players[1].kill}}</td>
-                                  <td>{{team.players[2].kill}}</td>
-                                  <td>{{team.players[3].kill}}</td>
-                                  <td>{{team.players[4].kill}}</td>
-                                  <td>{{team.players[5].kill}}</td>
-                                  <td>{{team.wwcd}}</td>
-                                  <td>{{team.pp}}</td>
-                                  <td>{{team.kills}}</td>
-                                  <td>{{team.total}}</td>
-                              </tr>
+                          <tr *ngFor="let team of teams; let i = index" [class.bg-danger]="i > 15">
+                              <td>
+                                  <img src="{{team.logo}}" alt="logo" style="width: 50px; height: 50px; border-radius: 50% ; border: 1px solid #000">
+                              </td>
+                              <td>{{team.name}}</td>
+                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[0].name}} : <span class="text-danger">{{team.players[0].kill}}</span></td>
+                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[1].name}} : <span class="text-danger">{{team.players[1].kill}}</span></td>
+                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[2].name}} : <span class="text-danger">{{team.players[2].kill}}</span></td>
+                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[3].name}} : <span class="text-danger">{{team.players[3].kill}}</span></td>
+                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[4].name}} : <span class="text-danger">{{team.players[4].kill}}</span></td>
+                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[5].name}} : <span class="text-danger">{{team.players[5].kill}}</span></td>
+                              <td *ngIf="!isShowPlayerName">{{team.players[0].kill}}</td>
+                              <td *ngIf="!isShowPlayerName">{{team.players[1].kill}}</td>
+                              <td *ngIf="!isShowPlayerName">{{team.players[2].kill}}</td>
+                              <td *ngIf="!isShowPlayerName">{{team.players[3].kill}}</td>
+                              <td *ngIf="!isShowPlayerName">{{team.players[4].kill}}</td>
+                              <td *ngIf="!isShowPlayerName">{{team.players[5].kill}}</td>
+                              <td>{{team.wwcd}}</td>
+                              <td>{{team.pp}}</td>
+                              <td>{{team.kills}}</td>
+                              <td>{{team.total}}</td>
+                          </tr>
                           </tbody>
                       </table>
                   </div>
