@@ -78,7 +78,7 @@ export class DashboardComponent implements OnInit {
             this.resultFinalDay2 = doc.data().days.finalDay2.sort((a: any, b: any) => b.total - a.total);
             this.resultFinalDay3 = doc.data().days.finalDay3.sort((a: any, b: any) => b.total - a.total);
             this.resultFinalDay = doc.data().days.finalDay.sort((a: any, b: any) => b.total - a.total);
-            this.teams = doc.data().days.all;
+            this.teams = this.resultDays;
             // this.result.push(doc.data());
             // sort the teams by kills
             // this.result = this.teams.sort((a, b) => {
