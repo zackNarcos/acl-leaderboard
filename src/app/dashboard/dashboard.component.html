@@ -95,6 +95,7 @@
                   <div class="card-body table-responsive">
                       <table class="table table-hover">
                           <thead class="text-danger">
+                          <th>#</th>
                           <th>LOGO</th>
                           <th>TEAM NAME</th>
                           <th>P1</th>
@@ -113,6 +114,7 @@
                               <td>
                                   <img src="{{team.logo}}" alt="logo" style="width: 50px; height: 50px; border-radius: 50% ; border: 1px solid #000">
                               </td>
+                              <td>{{i + 1}}</td>
                               <td>{{team.name}}</td>
                               <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[0].name}} : <span class="text-danger">{{team.players[0].kill}}</span></td>
                               <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[1].name}} : <span class="text-danger">{{team.players[1].kill}}</span></td>
