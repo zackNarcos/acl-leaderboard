@@ -53,8 +53,8 @@ export class UpTeamComponent implements OnInit {
 
             //find team (name) in teams array
 
-
         });
+        // this.joinDay1AndDay2()
     }
 
     firebaseConfig = {
@@ -85,9 +85,9 @@ export class UpTeamComponent implements OnInit {
         });
 
         this.teams.forEach((t) => {
-            console.log('t',t.name)
+            // console.log('t',t.name)
             if(t.name === this.team){
-                console.log('team',t)
+                // console.log('team',t)
                 this.team = t;
                 this.teamP1 = t.players[0].name
                 this.teamP2 = t.players[1].name
@@ -106,7 +106,65 @@ export class UpTeamComponent implements OnInit {
         });
     }
 
+    async joinDay1AndDay2() {
+        const querySnapshot = await getDocs(collection(this.db, "result"));
+        querySnapshot.forEach((doc) => {
+            const teams1 = doc.data().days.day1
+            const teams2 = doc.data().days.day2
+
+            const day1AndDay2 = []
+            teams1.forEach((t1) => {
+                teams2.forEach((t2) => {
+                    if(t1.name === t2.name){
+                        let playersWithKills = []
+                        t1.players.forEach((p1) => {
+                            t2.players.forEach((p2) => {
+                                if(p1.name === p2.name){
+                                    playersWithKills.push({
+                                        name: p1.name,
+                                        kill: p1.kill + p2.kill
+                                    })
+                                }
+                            })
+                        })
+
+                        const team = {
+                            name: t1.name,
+                            total: t1.total + t2.total,
+                            wwcd: t1.wwcd + t2.wwcd,
+                            kills: t1.kills + t2.kills,
+                            pp: t1.pp + t2.pp,
+                            players: playersWithKills,
+                            tag: t1.tag,
+                            logo: t1.logo,
+                        }
+
+                        day1AndDay2.push(team)
+                    }
+                })
+            })
+
+            console.log('day1AndDay2',day1AndDay2)
+            updateDoc(doc.ref, {
+                days: {
+                    day1: doc.data().days.day1,
+                    day2: doc.data().days.day2,
+                    day3: doc.data().days.day3,
+                    day4: doc.data().days.day4,
+                    day5: doc.data().days.day5,
+                    day6: doc.data().days.day6,
+                    all: day1AndDay2,
+                    finalDay1: doc.data().days.finalDay1,
+                    finalDay2: doc.data().days.finalDay2,
+                    finalDay3: doc.data().days.finalDay3,
+                    finalDay: doc.data().days.finalDay
+                }
+            })
+        });
+    }
+
     async updateTeam() {
+
 
         const querySnapshot = await getDocs(collection(this.db, "teams"));
         querySnapshot.forEach((doc) => {
