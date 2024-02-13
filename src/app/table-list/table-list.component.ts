@@ -98,10 +98,15 @@ export class TableListComponent implements OnInit {
             team.kills = newTeam.kills + team.kills;
             team.pp = newTeam.pp + team.pp;
             team.wwcd = newTeam.wwcd + team.wwcd;
+            // let playersWithKills = [];
             team.players.forEach((player: any) => {
               newTeam.players.forEach((newPlayer: any) => {
                 if(newPlayer.name === player.name) {
-                  player.kills = newPlayer.kills + player.kills;
+                  player.kill = newPlayer.kill + player.kill;
+                    // playersWithKills.push({
+                    //     name: player.name,
+                    //     kill: player.kill + newPlayer.kill
+                    // });
                 }
               });
             })

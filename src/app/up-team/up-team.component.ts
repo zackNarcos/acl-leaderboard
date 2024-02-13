@@ -107,10 +107,13 @@ export class UpTeamComponent implements OnInit {
     }
 
     async joinDay1AndDay2() {
+        let teams = []
         const querySnapshot = await getDocs(collection(this.db, "result"));
         querySnapshot.forEach((doc) => {
             const teams1 = doc.data().days.day1
             const teams2 = doc.data().days.day2
+            teams = doc.data().days.day3
+            this.updateTeams(teams)
 
             const day1AndDay2 = []
             teams1.forEach((t1) => {
@@ -158,6 +161,26 @@ export class UpTeamComponent implements OnInit {
                     finalDay2: doc.data().days.finalDay2,
                     finalDay3: doc.data().days.finalDay3,
                     finalDay: doc.data().days.finalDay
+                }
+            })
+
+
+
+        });
+    }
+
+    async updateTeams(teams: any[]) {
+        const querySnapshot = await getDocs(collection(this.db, "teams"));
+        querySnapshot.forEach((doc) => {
+            teams.forEach((team) => {
+                if(doc.data().name === team.name){
+                    updateDoc(doc.ref, {
+                        total: team.total,
+                        kills: team.kills,
+                        pp: team.pp,
+                        wwcd: team.wwcd,
+                        players: team.players
+                    });
                 }
             })
         });
