@@ -118,14 +118,21 @@
                               <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[1].name}} : <span class="text-danger">{{team.players[1].kill}}</span></td>
                               <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[2].name}} : <span class="text-danger">{{team.players[2].kill}}</span></td>
                               <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[3].name}} : <span class="text-danger">{{team.players[3].kill}}</span></td>
-                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[4].name}} : <span class="text-danger">{{team.players[4].kill}}</span></td>
-                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[5].name}} : <span class="text-danger">{{team.players[5].kill}}</span></td>
+                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[4].name}} : <span class="text-danger">{{team.players[4]?.kill}}</span></td>
+                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[5].name}} : <span class="text-danger">{{team.players[5]?.kill}}</span></td>
                               <td *ngIf="!isShowPlayerName">{{team.players[0].kill}}</td>
                               <td *ngIf="!isShowPlayerName">{{team.players[1].kill}}</td>
                               <td *ngIf="!isShowPlayerName">{{team.players[2].kill}}</td>
                               <td *ngIf="!isShowPlayerName">{{team.players[3].kill}}</td>
-                              <td *ngIf="!isShowPlayerName">{{team.players[4].kill}}</td>
-                              <td *ngIf="!isShowPlayerName">{{team.players[5].kill}}</td>
+                              <td *ngIf="!isShowPlayerName">
+                                  <span *ngIf="team.players[4]">
+                                      {{team.players[4].kill}}
+                                  </span>
+                              </td>
+                              <td *ngIf="!isShowPlayerName">
+                                  <span *ngIf="team.players[5]">
+                                      {{team.players[5].kill}}
+                                  </span></td>
                               <td>{{team.wwcd}}</td>
                               <td>{{team.pp}}</td>
                               <td>{{team.kills}}</td>
