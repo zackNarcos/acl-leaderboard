@@ -44,6 +44,7 @@ export class TableListComponent implements OnInit {
   ];
 
   day = this.formDays[1].value;
+  isDisabled = false;
   constructor() {
   }
 
@@ -72,6 +73,17 @@ export class TableListComponent implements OnInit {
   }
 
   async setDayData() {
+    //disabled for 10 seconds
+    this.isDisabled = true;
+    setTimeout(() => {
+      this.isDisabled = false;
+    }, 30000);
+
+    //show to notify alert after click for 10 seconds
+    alert('Data updated, please wait 30 seconds to update again');
+
+
+
     const day = this.formDays.find((d) => d.value === this.day);
     const querySnapshot = await getDocs(collection(this.db, "result"));
     querySnapshot.forEach((doc) => {
