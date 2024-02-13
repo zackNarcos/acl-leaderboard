@@ -116,12 +116,12 @@
                               </td>
                               <td>{{i + 1}}</td>
                               <td>{{team.name}}</td>
-                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[0].name}} : <span class="text-danger">{{team.players[0].kill}}</span></td>
-                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[1].name}} : <span class="text-danger">{{team.players[1].kill}}</span></td>
-                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[2].name}} : <span class="text-danger">{{team.players[2].kill}}</span></td>
-                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[3].name}} : <span class="text-danger">{{team.players[3].kill}}</span></td>
-                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[4]?.name}} : <span class="text-danger">{{team.players[4]?.kill}}</span></td>
-                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[5]?.name}} : <span class="text-danger">{{team.players[5]?.kill}}</span></td>
+                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[0].name}} : <span class="text-danger" [class.text-info]="i > 15">{{team.players[0].kill}}</span></td>
+                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[1].name}} : <span class="text-danger" [class.text-info]="i > 15">{{team.players[1].kill}}</span></td>
+                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[2].name}} : <span class="text-danger" [class.text-info]="i > 15">{{team.players[2].kill}}</span></td>
+                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[3].name}} : <span class="text-danger" [class.text-info]="i > 15">{{team.players[3].kill}}</span></td>
+                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[4]?.name}} : <span class="text-danger" [class.text-info]="i > 15">{{team.players[4]?.kill}}</span></td>
+                              <td *ngIf="isShowPlayerName" class="no-wrap">{{team.players[5]?.name}} : <span class="text-danger" [class.text-info]="i > 15">{{team.players[5]?.kill}}</span></td>
                               <td *ngIf="!isShowPlayerName">{{team.players[0].kill}}</td>
                               <td *ngIf="!isShowPlayerName">{{team.players[1].kill}}</td>
                               <td *ngIf="!isShowPlayerName">{{team.players[2].kill}}</td>
