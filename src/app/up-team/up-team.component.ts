@@ -55,6 +55,7 @@ export class UpTeamComponent implements OnInit {
 
         });
         // this.joinDay1AndDay2()
+        // this.assigneDay4AtDay3()
     }
 
     firebaseConfig = {
@@ -106,6 +107,29 @@ export class UpTeamComponent implements OnInit {
         });
     }
 
+    async assigneDay4AtDay3() {
+        const querySnapshot = await getDocs(collection(this.db, "result"));
+        querySnapshot.forEach((doc) => {
+            const day3 = doc.data().days.day4
+            this.updateTeams(day3)
+
+            updateDoc(doc.ref, {
+                days: {
+                    day1: doc.data().days.day1,
+                    day2: doc.data().days.day2,
+                    day3: day3,
+                    day4: doc.data().days.day4,
+                    day5: doc.data().days.day5,
+                    day6: doc.data().days.day6,
+                    all: doc.data().days.all,
+                    finalDay1: doc.data().days.finalDay1,
+                    finalDay2: doc.data().days.finalDay2,
+                    finalDay3: doc.data().days.finalDay3,
+                    finalDay: doc.data().days.finalDay
+                }
+            })
+        });
+    }
     async joinDay1AndDay2() {
         let teams = []
         const querySnapshot = await getDocs(collection(this.db, "result"));

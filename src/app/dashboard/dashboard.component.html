@@ -123,7 +123,11 @@
                               <td *ngIf="!isShowPlayerName">{{team.players[0].kill}}</td>
                               <td *ngIf="!isShowPlayerName">{{team.players[1].kill}}</td>
                               <td *ngIf="!isShowPlayerName">{{team.players[2].kill}}</td>
-                              <td *ngIf="!isShowPlayerName">{{team.players[3].kill}}</td>
+                              <td *ngIf="!isShowPlayerName">
+                                  <span *ngIf="team.players[3]">
+                                      {{team.players[3].kill}}
+                                  </span>
+                              </td>
                               <td *ngIf="!isShowPlayerName">
                                   <span *ngIf="team.players[4]">
                                       {{team.players[4].kill}}

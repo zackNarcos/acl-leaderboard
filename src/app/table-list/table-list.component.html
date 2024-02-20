@@ -9,9 +9,12 @@
                           <p class="card-category">S01</p>
                       </div>
                       <div class="row bg-white rounded" style="justify-content: space-between ; margin: 13px; padding-right: 1rem; padding-top: 0.5rem;">
-                              <button class="show-player" (click)="setDayData()" [disabled]="isDisabled">
-                                Cliquer ici uniquement si vous avez rensigné tous les matchs
-                              </button>
+                          <button class="show-player" (click)="setDayData()" [disabled]="isDisabled">
+                              Assigner les points a la journée
+                          </button>
+                          <button class="show-player" (click)="calculGroupeDay()" [disabled]="isDisabled">
+                                Calculer les points totaux des groupes days
+                          </button>
                           <mat-form-field>
                               <mat-label>Days</mat-label>
                               <mat-select [(value)]="day">
