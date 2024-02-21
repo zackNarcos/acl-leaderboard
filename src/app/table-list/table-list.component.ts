@@ -223,268 +223,40 @@ export class TableListComponent implements OnInit {
         const day6 = doc.data().days.day6;
         const all = doc.data().days.all;
         let newAll = [];
-        if (day1.length !== 0) {
-            newAll = day1;
-        }
 
-        if (day2.length !== 0) {
-          let newAllDay2 = [];
-          day1.forEach((teamDay1: any) => {
-            day2.forEach((teamDay2: any) => {
-              if(teamDay1.name === teamDay2.name) {
-                let playersWithKills = [];
-                teamDay1.players.forEach((playerDay1: any) => {
-                  teamDay2.players.forEach((playerDay2: any) => {
-                    if(playerDay1.name === playerDay2.name) {
-                      playersWithKills.push({
-                        name: playerDay1.name,
-                        kill: playerDay1.kill + playerDay2.kill
-                      });
-                    }
-                  });
-                });
+        let tmpAll = newAll.concat(day1, day2, day3, day4, day5, day6);
 
-                const newTeam = {
-                  name: teamDay1.name,
-                  total: teamDay1.total + teamDay2.total,
-                  kills: teamDay1.kills + teamDay2.kills,
-                  pp: teamDay1.pp + teamDay2.pp,
-                  wwcd: teamDay1.wwcd + teamDay2.wwcd,
-                  players: playersWithKills,
-                  tag: teamDay1.tag,
-                  logo: teamDay1.logo,
+        //join team stat when a same team.name in tmpAll
+        tmpAll = tmpAll.reduce((acc: any, current: any) => {
+          const x = acc.find((item: any) => item.name === current.name);
+          if (!x) {
+            return acc.concat([current]);
+          } else {
+            return acc.map((item: any) => (item.name === current.name ? Object.assign({}, item, {
+              total: item.total + current.total,
+              kills: item.kills + current.kills,
+              pp: item.pp + current.pp,
+              wwcd: item.wwcd + current.wwcd,
+              players: item.players.map((player: any) => {
+                const p = current.players.find((p: any) => p.name === player.name);
+                if(p) {
+                  return {
+                    name: player.name,
+                    kill: player.kill + p.kill,
+                    id: player.id
+                  }
+                } else {
+                  return player;
                 }
-
-                newAllDay2.push(newTeam);
-              }
-            })
-
-            const team = newAllDay2.find((t: any) => t.name === teamDay1.name);
-            if (!team) {
-              newAllDay2.push(teamDay1);
-            }
-          });
-
-          newAll = newAllDay2;
-        }
-
-        if (day3.length !== 0) {
-          let newAllDay3 = [];
-          newAll.forEach((teamDay1: any) => {
-            day3.forEach((teamDay3: any) => {
-              if(teamDay1.name === teamDay3.name) {
-                let playersWithKills = [];
-                teamDay1.players.forEach((playerDay1: any) => {
-                  teamDay3.players.forEach((playerDay3: any) => {
-                    if(playerDay1.name === playerDay3.name) {
-                      playersWithKills.push({
-                        name: playerDay1.name,
-                        kill: playerDay1.kill + playerDay3.kill
-                      });
-                    }
-                  });
-                });
-
-                const newTeam = {
-                  name: teamDay1.name,
-                  total: teamDay1.total + teamDay3.total,
-                  kills: teamDay1.kills + teamDay3.kills,
-                  pp: teamDay1.pp + teamDay3.pp,
-                  wwcd: teamDay1.wwcd + teamDay3.wwcd,
-                  players: playersWithKills,
-                  tag: teamDay1.tag,
-                  logo: teamDay1.logo,
-                }
-
-                newAllDay3.push(newTeam);
-              }
-            })
-
-            const team = newAllDay3.find((t: any) => t.name === teamDay1.name);
-            if (!team) {
-              newAllDay3.push(teamDay1);
-            }
-
-          });
-
-          newAll = newAllDay3;
-        }
-
-        if (day4.length !== 0) {
-          let newAllDay4 = [];
-          newAll.forEach((teamDay1: any) => {
-            day4.forEach((teamDay4: any) => {
-              if(teamDay1.name === teamDay4.name) {
-                let playersWithKills = [];
-                teamDay1.players.forEach((playerDay1: any) => {
-                  teamDay4.players.forEach((playerDay4: any) => {
-                    if(playerDay1.name === playerDay4.name) {
-                      playersWithKills.push({
-                        name: playerDay1.name,
-                        kill: playerDay1.kill + playerDay4.kill
-                      });
-                    }
-                  });
-                });
-
-                const newTeam = {
-                  name: teamDay1.name,
-                  total: teamDay1.total + teamDay4.total,
-                  kills: teamDay1.kills + teamDay4.kills,
-                  pp: teamDay1.pp + teamDay4.pp,
-                  wwcd: teamDay1.wwcd + teamDay4.wwcd,
-                  players: playersWithKills,
-                  tag: teamDay1.tag,
-                  logo: teamDay1.logo,
-                }
-
-                newAllDay4.push(newTeam);
-              }
-            })
-
-            const team = newAllDay4.find((t: any) => t.name === teamDay1.name);
-            if (!team) {
-              newAllDay4.push(teamDay1);
-            }
-          });
-
-          newAll = newAllDay4;
-        }
-
-        if (day5.length !== 0) {
-          let newAllDay5 = [];
-          newAll.forEach((teamDay1: any) => {
-            day5.forEach((teamDay5: any) => {
-              if(teamDay1.name === teamDay5.name) {
-                let playersWithKills = [];
-                teamDay1.players.forEach((playerDay1: any) => {
-                  teamDay5.players.forEach((playerDay5: any) => {
-                    if(playerDay1.name === playerDay5.name) {
-                      playersWithKills.push({
-                        name: playerDay1.name,
-                        kill: playerDay1.kill + playerDay5.kill
-                      });
-                    }
-                  });
-                });
-
-                const newTeam = {
-                  name: teamDay1.name,
-                  total: teamDay1.total + teamDay5.total,
-                  kills: teamDay1.kills + teamDay5.kills,
-                  pp: teamDay1.pp + teamDay5.pp,
-                  wwcd: teamDay1.wwcd + teamDay5.wwcd,
-                  players: playersWithKills,
-                  tag: teamDay1.tag,
-                  logo: teamDay1.logo,
-                }
-
-                newAllDay5.push(newTeam);
-              }
-            })
-
-            const team = newAllDay5.find((t: any) => t.name === teamDay1.name);
-            if (!team) {
-              newAllDay5.push(teamDay1);
-            }
-          });
-
-          newAll = newAllDay5;
-        }
-
-        if (day6.length !== 0) {
-          let newAllDay6 = [];
-          newAll.forEach((teamDay1: any) => {
-            day6.forEach((teamDay6: any) => {
-              if(teamDay1.name === teamDay6.name) {
-                let playersWithKills = [];
-                teamDay1.players.forEach((playerDay1: any) => {
-                  teamDay6.players.forEach((playerDay6: any) => {
-                    if(playerDay1.name === playerDay6.name) {
-                      playersWithKills.push({
-                        name: playerDay1.name,
-                        kill: playerDay1.kill + playerDay6.kill
-                      });
-                    }
-                  });
-                });
-
-                const newTeam = {
-                  name: teamDay1.name,
-                  total: teamDay1.total + teamDay6.total,
-                  kills: teamDay1.kills + teamDay6.kills,
-                  pp: teamDay1.pp + teamDay6.pp,
-                  wwcd: teamDay1.wwcd + teamDay6.wwcd,
-                  players: playersWithKills,
-                  tag: teamDay1.tag,
-                  logo: teamDay1.logo,
-                }
-
-                newAllDay6.push(newTeam);
-              }
-            })
-
-            const team = newAllDay6.find((t: any) => t.name === teamDay1.name);
-            if (!team) {
-              newAllDay6.push(teamDay1);
-            }
-          });
-
-          newAll = newAllDay6;
-        }
-
-        //Add to newAll all teams that are not in newAll from day1
-        if(day1.length !== 0)
-        day1.forEach((teamDay1: any) => {
-          const team = newAll.find((t: any) => t.name === teamDay1.name);
-          if (!team) {
-            newAll.push(teamDay1);
+              })
+            }) : item));
           }
-        });
-        //Add to newAll all teams that are not in newAll from day2
-        if(day2.length !== 0)
-        day2.forEach((teamDay2: any) => {
-          const team = newAll.find((t: any) => t.name === teamDay2.name);
-          if (!team) {
-            newAll.push(teamDay2);
-          }
-        });
-        //Add to newAll all teams that are not in newAll from day3
-        if(day3.length !== 0)
-        day3.forEach((teamDay3: any) => {
-          const team = newAll.find((t: any) => t.name === teamDay3.name);
-          if (!team) {
-            newAll.push(teamDay3);
-          }
-        });
-        //Add to newAll all teams that are not in newAll from day4
-        if(day4.length !== 0)
-        day4.forEach((teamDay4: any) => {
-          const team = newAll.find((t: any) => t.name === teamDay4.name);
-          if (!team) {
-            newAll.push(teamDay4);
-          }
-        });
-        //Add to newAll all teams that are not in newAll from day5
-        if(day5.length !== 0)
-        day5.forEach((teamDay5: any) => {
-          const team = newAll.find((t: any) => t.name === teamDay5.name);
-          if (!team) {
-            newAll.push(teamDay5);
-          }
-        });
-        //Add to newAll all teams that are not in newAll from day6
-        if(day6.length !== 0)
-        day6.forEach((teamDay6: any) => {
-          const team = newAll.find((t: any) => t.name === teamDay6.name);
-          if (!team) {
-            newAll.push(teamDay6);
-          }
-        });
+        }, []);
+
 
         updateDoc(doc.ref, {
           days: {
-            all: newAll,
+            all: tmpAll,
             day1: doc.data().days.day1,
             day2: doc.data().days.day2,
             day3: doc.data().days.day3,
