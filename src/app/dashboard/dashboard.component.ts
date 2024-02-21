@@ -88,8 +88,15 @@ export class DashboardComponent implements OnInit {
             // this.getResults();
         });
 
-        this.topFragger = this.teams.reduce((prev, current) => (prev.kills > current.kills) ? prev : current);
-        this.playerTopFragger = this.topFragger.players.reduce((prev, current) => (prev.kill > current.kill) ? prev : current);
+        let playerWhoKilledMost = null
+        this.teams.forEach((team) => {
+            team.players.forEach((player) => {
+                if (playerWhoKilledMost === null || player.kill > playerWhoKilledMost.kill) {
+                    playerWhoKilledMost = player
+                }
+            })
+        })
+        this.playerTopFragger = playerWhoKilledMost
     }
 
     // async getResults() {
